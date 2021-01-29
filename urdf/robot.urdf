@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<robot name="arm5dof">
+
+  <material name="blue">
+    <color rgba="0 0 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.305 0.200 0.185"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.305 0.200 0.185"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <link name="L1">
+    <visual>
+      <geometry>
+        <cylinder length="0.200" radius="0.030"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.100"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.200" radius="0.030"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.100"/>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+   <joint name="J1" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-1.57075" upper="1.57075" velocity="0.5"/>
+    <parent link="base_link"/>
+    <child link="L1"/>
+    <origin xyz="0.100 0 0.100"/>
+  </joint>
+
+<link name="L2">
+    <visual>
+      <geometry>
+        <box size="0.300 0.060 0.060"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.035 0 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.300 0.060 0.060"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.035 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+   <joint name="J2" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="-1.57075" upper="1.57075" velocity="0.5"/>
+    <parent link="L1"/>
+    <child link="L2"/>
+    <origin xyz="0 0.060 0.185"/>
+  </joint>
+
+<link name="L3">
+    <visual>
+      <geometry>
+        <box size="0.280 0.060 0.060"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.030 0 0"/>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.280 0.060 0.060"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0.030 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="10"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+   <joint name="J3" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="-1.57075" upper="1.57075" velocity="0.5"/>
+    <parent link="L2"/>
+    <child link="L3"/>
+    <origin xyz="0.165 -0.060 0"/>
+  </joint>
+
+  <link name="L4">
+    <visual>
+      <geometry>
+        <cylinder length="0.110" radius="0.010"/>
+      </geometry>
+      <origin rpy="0 1.57075 0 " xyz="0.020 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="0.110" radius="0.010"/>
+      </geometry>
+      <origin rpy="0 1.57075 0 " xyz="0.020 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+   <joint name="J4" type="revolute">
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="-1.57075" upper="1.57075" velocity="0.5"/>
+    <parent link="L3"/>
+    <child link="L4"/>
+    <origin rpy="0 0 0" xyz="0.150 0 0"/>
+  </joint>
+
+
+  <link name="left_gripper">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://arm5dof/meshes/l_finger.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arm5dof/meshes/l_finger.dae"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+   <joint name="left_gripper_joint" type="revolute">
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="0.050 0.01 0"/>
+    <parent link="L4"/>
+    <child link="left_gripper"/>
+  </joint>
+
+  <link name="left_tip">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0.09137 0.00495 0"/>
+      <geometry>
+        <mesh filename="package://arm5dof/meshes/l_finger_tip.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arm5dof/meshes/l_finger_tip.dae"/>
+      </geometry>
+      <origin rpy="0.0 0 0" xyz="0.09137 0.00495 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <joint name="left_tip_joint" type="fixed">
+    <parent link="left_gripper"/>
+    <child link="left_tip"/>
+  </joint>
+
+  <link name="right_gripper">
+    <visual>
+      <origin rpy="-3.1415 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://arm5dof/meshes/l_finger.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arm5dof/meshes/l_finger.dae"/>
+      </geometry>
+      <origin rpy="-3.1415 0 0" xyz="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+   <joint name="right_gripper_joint" type="revolute">
+    <axis xyz="0 0 -1"/>
+    <limit effort="1000.0" lower="0.0" upper="0.548" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="0.050 -0.010 0"/>
+    <parent link="L4"/>
+    <child link="right_gripper"/>
+  </joint>
+
+  <link name="right_tip">
+    <visual>
+      <origin rpy="-3.1415 0 0" xyz="0.09137 0.00495 0"/>
+      <geometry>
+        <mesh filename="package://arm5dof/meshes/l_finger_tip.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://arm5dof/meshes/l_finger_tip.dae"/>
+      </geometry>
+      <origin rpy="-3.1415 0 0" xyz="0.09137 0.00495 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <joint name="right_tip_joint" type="fixed">
+    <parent link="right_gripper"/>
+    <child link="right_tip"/>
+  </joint>
+</robot>
+
